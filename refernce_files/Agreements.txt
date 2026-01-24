@@ -1,0 +1,165 @@
+# **Dynamic & Generalized Agreement Prompt Template**
+
+Below is a universal prompt you can give to your agent/system to generate a customized agreement.  
+All fields are dynamic and should be filled in by the user.
+
+***
+
+## **📄 SERVICE AGREEMENT – DYNAMIC TEMPLATE**
+
+This Agreement is entered into between **\[Service Provider Name]** (“Service Provider”) and **\[Client Name]** (“Client”) on **\[Agreement Date]**.
+
+***
+
+### **1. Scope of Work**
+
+The Service Provider agrees to provide the following services:
+
+**Service Type:**  
+\[Describe the nature of the service — e.g., Website Development, Graphic Design, Consulting, Marketing, Content Writing, etc.]
+
+**Deliverables Include:**  
+• \[Deliverable 1]  
+• \[Deliverable 2]  
+• \[Deliverable 3]  
+• \[Deliverable 4]
+
+Any services, features, tasks, or deliverables **not listed above** are outside the current scope and may require a separate quotation or amendment.
+
+***
+
+### **2. Timeline & Milestones**
+
+• **Project Start Date:** \[Start Date]  
+• **Estimated Completion Date:** \[End Date]  
+• **Total Duration:** \[X Days/Weeks/Months]
+
+Timeline adjustments may occur if the Client delays feedback, approvals, or required inputs.
+
+***
+
+### **3. Payment Terms**
+
+The Client agrees to pay according to the selected structure:
+
+• ☐ **50% Upfront & 50% Upon Completion**  
+• ☐ **100% Upfront**  
+• ☐ **100% Upon Completion**  
+• ☐ **Milestone-Based Payments (define milestones)**:
+
+*   Milestone 1: \[Description] – \[Amount]
+*   Milestone 2: \[Description] – \[Amount]
+
+**Payment Method:** \[Bank Transfer / UPI / PayPal / Stripe / Other]
+
+Work may be paused if payments are delayed.
+
+***
+
+### **4. Revisions**
+
+This Agreement includes **\[Number]** revisions.
+
+A *revision* means minor adjustments within the agreed scope.
+
+Major changes or scope expansions will be billed separately.
+
+***
+
+### **5. Client Responsibilities**
+
+The Client agrees to:
+
+• Provide required content, materials, or information on time  
+• Give timely feedback and approvals  
+• Ensure all provided content is legally owned and does not infringe on third-party rights
+
+Delays in client input may extend delivery timelines.
+
+***
+
+### **6. Ownership & Usage Rights**
+
+Upon **full payment**, the Client receives ownership rights to the final approved deliverables.
+
+The Service Provider may showcase the work in their portfolio **unless** the Client requests otherwise in writing before project completion.
+
+***
+
+### **7. Confidentiality**
+
+Both parties agree to protect confidential information shared during the project and not disclose it without consent.
+
+***
+
+### **8. Termination**
+
+Either party may terminate this Agreement through written notice.
+
+• Payments made are non-refundable for completed work.  
+• Work completed until termination will be provided after dues are cleared.
+
+***
+
+### **9. Limitation of Liability**
+
+The Service Provider is not liable for:
+
+• Losses of revenue, profit, or business  
+• Issues arising from third-party tools/platforms  
+• Delays caused by the Client or external factors
+
+***
+
+### **10. Governing Law**
+
+This Agreement is governed by the laws of **\[Jurisdiction / Country]** unless otherwise agreed.
+
+***
+
+### **11. Acceptance & E‑Signature**
+
+By signing below or proceeding with the project, both parties acknowledge and accept the terms.
+
+**Client Signature:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
+**Date:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**Service Provider Signature:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
+**Date:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+***
+
+# ✔️ Required Fields to Collect from the User
+
+To generate a complete agreement, ensure the user provides:
+
+### **Party Details**
+
+*   Service Provider Name
+*   Client Name
+*   Agreement Date
+
+### **Project Details**
+
+*   Service Type
+*   List of Deliverables
+*   Start Date
+*   End Date
+*   Estimated Duration
+
+### **Payment Terms**
+
+*   Selected payment structure
+*   Milestones (if applicable)
+*   Payment Method
+
+### **Revision Policy**
+
+*   Number of included revisions
+
+### **Legal Details**
+
+*   Jurisdiction
+*   Any special terms (optional)
+
+***
