@@ -13,5 +13,3 @@ dist
 dist-ssr
 *.local
 backend/.env
-
-
