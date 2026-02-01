@@ -19,6 +19,7 @@ import NotFound from "./pages/NotFound";
 import ClientsPage from "./pages/Clients";
 import VendorsPage from "./pages/Vendors";
 import ProjectsPage from "./pages/Projects";
+import ProjectDetails from "./pages/ProjectDetails";
 import MonthlyReport from "./pages/MonthlyReport";
 import ClientSignature from "./pages/ClientSignature";
 
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/expenses/create" element={<CreateExpense />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:id" element={<ProjectDetails />} />
           <Route path="/clients" element={<ClientsPage />} />
           <Route path="/vendors" element={<VendorsPage />} />
           <Route path="/monthly-report/:userId" element={<MonthlyReport />} />

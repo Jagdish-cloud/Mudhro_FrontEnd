@@ -574,8 +574,23 @@ type SaveMode = "create-send" | "create-save" | "update-send" | "update-save";
                 console.warn("[CreateInvoice] Client not found in clients list:", clientIdStr, "Available:", clientsData.map(c => c.id));
                 toast.warning(`Client ID ${clientIdStr} not found. Please select a client.`);
               }
-              // Note: projectId auto-selection removed - clients can belong to multiple projects
-              // User can manually select project if needed
+            }
+            
+            // Set project ID if invoice has one
+            if (inv.projectId) {
+              const projectIdStr = inv.projectId.toString();
+              console.log("[CreateInvoice] Setting project ID:", projectIdStr, "Available projects:", projectsData.length);
+              setSelectedProjectId(projectIdStr);
+              
+              // Verify project exists in the loaded projects list
+              const projectExists = projectsData.find(p => p.id.toString() === projectIdStr);
+              if (!projectExists) {
+                console.warn("[CreateInvoice] Project not found in projects list:", projectIdStr, "Available:", projectsData.map(p => p.id));
+                toast.warning(`Project ID ${projectIdStr} not found. Please select a project.`);
+              }
+            } else {
+              // Reset to "none" if invoice has no project
+              setSelectedProjectId("none");
             }
             
             console.log("[CreateInvoice] Invoice data loaded successfully");
@@ -613,13 +628,59 @@ type SaveMode = "create-send" | "create-save" | "update-send" | "update-save";
           setServiceOptions(itemNames);
         }
       } catch (error: any) {
-        console.error("Error loading invoice data:", error);
-        toast.error(error.message || "Failed to load data");
+        console.error("[CreateInvoice] Error loading data:", error);
+        toast.error("Failed to load data. Please refresh the page.");
+      } finally {
+        setLoading(false);
       }
     };
 
     loadData();
-  }, [navigate, editId]);
+  }, [location.search, editId]);
+
+  // Effect to filter clients based on selected project
+  useEffect(() => {
+    const filterClientsByProject = async () => {
+      if (selectedProjectId === "none") {
+        // Show all clients when no project is selected
+        setClients(allClients);
+        return;
+      }
+
+      // Fetch clients for the selected project
+      try {
+        const projectId = parseInt(selectedProjectId, 10);
+        if (isNaN(projectId)) {
+          console.warn("[CreateInvoice] Invalid project ID:", selectedProjectId);
+          setClients(allClients);
+          return;
+        }
+
+        const projectClients = await projectService.getClientsByProjectId(projectId);
+        setClients(projectClients);
+        
+        // If a client was previously selected but is not in the filtered list, clear the selection
+        if (selectedClientId) {
+          const clientExists = projectClients.some(c => c.id.toString() === selectedClientId);
+          if (!clientExists) {
+            console.log("[CreateInvoice] Previously selected client not in project, clearing selection");
+            setSelectedClientId("");
+          }
+        }
+      } catch (error: any) {
+        console.error("[CreateInvoice] Error fetching clients for project:", error);
+        toast.error("Failed to load clients for project");
+        // Fallback to all clients on error
+        setClients(allClients);
+      }
+    };
+
+    // Only filter if allClients is loaded (to avoid filtering empty array)
+    if (allClients.length > 0 || selectedProjectId === "none") {
+      filterClientsByProject();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedProjectId, allClients]);
 
   // Fetch latest client note when selected client changes
   useEffect(() => {
@@ -894,6 +955,7 @@ type SaveMode = "create-send" | "create-save" | "update-send" | "update-save";
         invoiceDate: issueDate, // Already in YYYY-MM-DD format from date input
         dueDate: dueDate, // Already in YYYY-MM-DD format from date input
         clientId: parseInt(selectedClientId, 10),
+        projectId: selectedProjectId !== "none" ? parseInt(selectedProjectId, 10) : null,
         subTotalAmount: subtotal,
         gst: effectiveTaxRate * 100, // Convert to percentage (e.g., 0.18 -> 18)
         totalAmount: total,
@@ -1447,8 +1509,8 @@ type SaveMode = "create-send" | "create-save" | "update-send" | "update-save";
                 value={selectedProjectId}
                 onValueChange={(value) => {
                   setSelectedProjectId(value);
-                  // Clear client selection when project changes
-                  setSelectedClientId("");
+                  // Client selection will be cleared automatically by the useEffect
+                  // if the selected client is not in the new project's client list
                 }}
               >
                 <SelectTrigger>

@@ -25,6 +25,7 @@ export interface Invoice {
   additionalNotes?: string;
   paymentReminderRepetition?: string[] | null; // Array of: '3', '7', 'Only on Due date', or null
   clientId: number;
+  projectId?: number | null;
   userId: number;
   createdAt: Date;
   updatedAt: Date;
@@ -55,6 +56,7 @@ export interface InvoiceCreateData {
   balanceDue?: number | null;
   balanceDueDate?: string | Date | null;
   clientId: number;
+  projectId?: number | null;
   items?: Array<{
     itemsId: number;
     quantity: number;

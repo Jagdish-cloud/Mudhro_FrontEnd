@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,8 +29,10 @@ import { formatCurrency, Currency } from "@/lib/currency";
 import { authService } from "@/lib/auth";
 import AgreementModal from "@/components/AgreementModal";
 import { agreementService } from "@/lib/services/agreementService";
+import { encodeId } from "@/lib/urlEncoder";
 
 const ProjectsPage = () => {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -340,7 +343,11 @@ const ProjectsPage = () => {
                     </thead>
                     <tbody>
                       {filteredProjects.map((p) => (
-                        <tr key={p.id} className="border-t hover:bg-muted/50">
+                        <tr 
+                          key={p.id} 
+                          className="border-t hover:bg-muted/50 cursor-pointer"
+                          onClick={() => navigate(`/projects/${encodeId(p.id)}`)}
+                        >
                           <td className="p-2 text-sm font-medium">{p.name}</td>
                           <td className="p-2 text-sm text-muted-foreground">
                             {p.description ? (p.description.length > 50 ? p.description.substring(0, 50) + "..." : p.description) : "—"}
@@ -374,7 +381,7 @@ const ProjectsPage = () => {
                               }
                             })()}
                           </td>
-                          <td className="p-2">
+                          <td className="p-2" onClick={(e) => e.stopPropagation()}>
                             <div className="flex gap-2">
                               <Button
                                 variant="ghost"
@@ -419,7 +426,11 @@ const ProjectsPage = () => {
                 {/* Mobile Card View */}
                 <div className="md:hidden space-y-4">
                   {filteredProjects.map((p) => (
-                    <Card key={p.id} className="p-4">
+                    <Card 
+                      key={p.id} 
+                      className="p-4 cursor-pointer"
+                      onClick={() => navigate(`/projects/${encodeId(p.id)}`)}
+                    >
                       <div className="space-y-3">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-medium text-muted-foreground">Name</span>
@@ -459,7 +470,7 @@ const ProjectsPage = () => {
                           <span className="text-xs font-medium text-muted-foreground">Clients</span>
                           <span className="text-sm">{p.clientCount ?? 0}</span>
                         </div>
-                        <div className="flex items-center justify-end gap-2 pt-2 border-t">
+                        <div className="flex items-center justify-end gap-2 pt-2 border-t" onClick={(e) => e.stopPropagation()}>
                           <Button
                             variant="ghost"
                             size="sm"

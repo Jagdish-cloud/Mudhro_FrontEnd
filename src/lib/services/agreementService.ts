@@ -14,6 +14,8 @@ export interface AgreementPaymentMilestone {
   amount: number;
   order: number;
   date?: string;
+  status?: 'pending' | 'created';
+  createdAt?: string;
 }
 
 export interface AgreementPaymentTerms {

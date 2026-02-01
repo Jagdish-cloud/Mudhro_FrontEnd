@@ -5,7 +5,7 @@ export interface Vendor {
   id: number;
   organization?: string | null;
   fullName: string;
-  email: string;
+  email?: string | null;
   mobileNumber?: string | null;
   gstin?: string | null;
   pan?: string | null;
@@ -18,7 +18,7 @@ export interface Vendor {
 export interface VendorCreateData {
   organization?: string;
   fullName: string;
-  email: string;
+  email?: string;
   mobileNumber?: string;
   gstin?: string;
   pan?: string;

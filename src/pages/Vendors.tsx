@@ -224,7 +224,7 @@ const VendorsPage = () => {
         const updatedVendor = await vendorService.updateVendor(vendorId, {
           organization: form.organization || undefined,
           fullName: form.fullName,
-          email: form.email,
+          email: form.email || undefined,
           mobileNumber: form.phone || undefined,
           gstin: form.gstin || undefined,
           pan: form.pan || undefined,
@@ -237,7 +237,7 @@ const VendorsPage = () => {
         const newVendor = await vendorService.createVendor({
           organization: form.organization || undefined,
           fullName: form.fullName,
-          email: form.email,
+          email: form.email || undefined,
           mobileNumber: form.phone || undefined,
           gstin: form.gstin || undefined,
           pan: form.pan || undefined,
@@ -423,7 +423,7 @@ const VendorsPage = () => {
                         <Input value={form.fullName} onChange={(e) => setForm((p) => ({ ...p, fullName: e.target.value }))} placeholder="John Doe" />
                       </div>
                       <div>
-                        <Label>Email</Label>
+                        <Label>Email (optional)</Label>
                         <Input type="email" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} placeholder="john@example.com" />
                       </div>
                       <div>
