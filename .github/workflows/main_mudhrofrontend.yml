@@ -43,7 +43,7 @@ jobs:
         run: |
           mkdir -p dist/client-portal
           cp -r client-portal/dist/* dist/client-portal/
-          cp server.js dist/          # Copy server.js to dist
+          cp server.js dist/
           # Create minimal package.json for dist with express dependency
           cat > dist/package.json << 'EOF'
           {
@@ -57,6 +57,10 @@ jobs:
             }
           }
           EOF
+          # Install express in dist folder
+          cd dist
+          npm install --production
+          cd ..
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
