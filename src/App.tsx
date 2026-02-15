@@ -22,6 +22,7 @@ import ProjectsPage from "./pages/Projects";
 import ProjectDetails from "./pages/ProjectDetails";
 import MonthlyReport from "./pages/MonthlyReport";
 import ClientSignature from "./pages/ClientSignature";
+import TermsAndConditions from "./pages/TermsAndConditions";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,7 @@ const App = () => (
           <Route path="/vendors" element={<VendorsPage />} />
           <Route path="/monthly-report/:userId" element={<MonthlyReport />} />
           <Route path="/agreement/sign/:token" element={<ClientSignature />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

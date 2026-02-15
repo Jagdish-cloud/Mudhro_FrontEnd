@@ -13,3 +13,5 @@ dist
 dist-ssr
 *.local
 backend/.env
+client-portal/node_modules/
+client-portal/dist/
