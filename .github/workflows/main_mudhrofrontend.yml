@@ -41,10 +41,28 @@ jobs:
       # Combine dist folders and prepare for deployment
       - name: Prepare combined dist
         run: |
+          # Create client-portal directory in dist
           mkdir -p dist/client-portal
-          cp -r client-portal/dist/* dist/client-portal/
-          cp server.js dist/
-          # Create minimal package.json for dist with express dependency
+          
+          # Copy client-portal build output
+          if [ -d "client-portal/dist" ]; then
+            cp -r client-portal/dist/. dist/client-portal/
+            echo "Client portal files copied successfully"
+            ls -la dist/client-portal/
+          else
+            echo "ERROR: client-portal/dist directory not found!"
+            exit 1
+          fi
+          
+          # Copy server.js
+          if [ -f "server.js" ]; then
+            cp server.js dist/
+          else
+            echo "ERROR: server.js not found!"
+            exit 1
+          fi
+          
+          # Create package.json and install dependencies
           cat > dist/package.json << 'EOF'
           {
             "name": "mudhro-frontend",
@@ -57,7 +75,7 @@ jobs:
             }
           }
           EOF
-          # Install express in dist folder
+          
           cd dist
           npm install --production
           cd ..
