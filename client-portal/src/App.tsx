@@ -11,7 +11,7 @@ import PrivateRoute from './components/PrivateRoute';
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router basename="/client-portal">  {/* Add basename prop */}
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
