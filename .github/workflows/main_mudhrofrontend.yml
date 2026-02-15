@@ -38,11 +38,25 @@ jobs:
           cd client-portal
           npm run build       # outputs to client-portal/dist/
 
-      # Combine dist folders
+      # Combine dist folders and prepare for deployment
       - name: Prepare combined dist
         run: |
           mkdir -p dist/client-portal
           cp -r client-portal/dist/* dist/client-portal/
+          cp server.js dist/          # Copy server.js to dist
+          # Create minimal package.json for dist with express dependency
+          cat > dist/package.json << 'EOF'
+          {
+            "name": "mudhro-frontend",
+            "version": "1.0.0",
+            "scripts": {
+              "start": "node server.js"
+            },
+            "dependencies": {
+              "express": "^4.18.2"
+            }
+          }
+          EOF
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
