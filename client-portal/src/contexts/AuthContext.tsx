@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AuthContextType {
   token: string | null;
@@ -22,16 +22,11 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // Store token in memory only (not localStorage for security)
-  const [token, setToken] = useState<string | null>(null);
-
-  // Check for token in sessionStorage on mount (survives page refresh but cleared on tab close)
-  useEffect(() => {
-    const storedToken = sessionStorage.getItem('client_token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
+  // Initialize token synchronously from sessionStorage to avoid race condition with PrivateRoute
+  // Use lazy initialization to read from sessionStorage on first render only
+  const [token, setToken] = useState<string | null>(() => {
+    return sessionStorage.getItem('client_token');
+  });
 
   const login = (newToken: string) => {
     setToken(newToken);

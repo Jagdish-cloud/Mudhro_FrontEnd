@@ -35,8 +35,8 @@ const Dashboard = () => {
   const fetchData = async () => {
     try {
       const [invoicesResponse, clientResponse] = await Promise.all([
-        api.get('/client/invoices'),
-        api.get('/client/invoices/info'),
+        api.get('/client-portal/invoices'),
+        api.get('/client-portal/invoices/info'),
       ]);
 
       if (invoicesResponse.data.success) {
