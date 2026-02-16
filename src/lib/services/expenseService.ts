@@ -19,7 +19,7 @@ export interface Expense {
   expenseFileName: string | null;
   additionalNotes: string | null;
   vendorId: number;
-  projectId: number;
+  projectId: number | null;
   userId: number;
   createdAt: Date;
   updatedAt: Date;
@@ -35,7 +35,7 @@ export interface ExpenseCreateData {
   totalAmount?: number;
   additionalNotes?: string;
   vendorId: number;
-  projectId: number;
+  projectId?: number | null;
   items?: ExpenseItemPayload[];
 }
 

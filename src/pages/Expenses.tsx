@@ -115,6 +115,9 @@ const Expenses = () => {
   useEffect(() => {
     if (selectedProjectId === "all") {
       setExpenses(allExpenses);
+    } else if (selectedProjectId === "none") {
+      const filtered = allExpenses.filter(exp => exp.projectId === null || exp.projectId === undefined);
+      setExpenses(filtered);
     } else {
       const projectId = parseInt(selectedProjectId, 10);
       const filtered = allExpenses.filter(exp => exp.projectId === projectId);
@@ -294,6 +297,7 @@ const Expenses = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Projects</SelectItem>
+                    <SelectItem value="none">No Project</SelectItem>
                     {projects.map((project) => (
                       <SelectItem key={project.id} value={project.id.toString()}>
                         {project.name}
@@ -342,7 +346,7 @@ const Expenses = () => {
                           {expense.billNumber || `BILL-${expense.id}`}
                         </td>
                         <td className="py-3 px-2 text-sm">
-                          {projectsMap[expense.projectId] || "Unknown Project"}
+                          {projectsMap[expense.projectId] || "No Project"}
                         </td>
                         <td className="py-3 px-2 text-sm">
                           {vendorsMap[expense.vendorId] || "Vendor"}
@@ -425,7 +429,7 @@ const Expenses = () => {
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-medium text-muted-foreground">Project</span>
-                        <span className="text-sm">{projectsMap[expense.projectId] || "Unknown Project"}</span>
+                        <span className="text-sm">{projectsMap[expense.projectId] || "No Project"}</span>
                       </div>
                       <div className="flex flex-col">
                         <span className="text-xs font-medium text-muted-foreground">Vendor</span>

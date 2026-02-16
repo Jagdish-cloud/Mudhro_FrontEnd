@@ -64,7 +64,7 @@ const ExpenseModal = ({
   const [vendors, setVendors] = useState<Vendor[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedVendorId, setSelectedVendorId] = useState("");
-  const [selectedProjectIdModal, setSelectedProjectIdModal] = useState("");
+  const [selectedProjectIdModal, setSelectedProjectIdModal] = useState("none");
   const [billNumber, setBillNumber] = useState(`BILL-${Date.now().toString().slice(-4)}`);
   const [billDate, setBillDate] = useState(new Date().toISOString().split("T")[0]);
   const [dueDate, setDueDate] = useState(() => {
@@ -179,6 +179,8 @@ const ExpenseModal = ({
       setSelectedVendorId(expense.vendorId.toString());
       if (expense.projectId) {
         setSelectedProjectIdModal(expense.projectId.toString());
+      } else {
+        setSelectedProjectIdModal("none");
       }
       setTaxPercentage(expense.taxPercentage ?? 0);
       setNotes(expense.additionalNotes || "");
@@ -483,11 +485,6 @@ const ExpenseModal = ({
       return;
     }
 
-    if (!selectedProjectIdModal) {
-      toast.error("Please select a project");
-      return;
-    }
-
     if (items.length === 0) {
       toast.error("Add at least one line item");
       return;
@@ -520,7 +517,7 @@ const ExpenseModal = ({
           billDate,
           dueDate,
           vendorId: parseInt(selectedVendorId, 10),
-          projectId: parseInt(selectedProjectIdModal, 10),
+          projectId: selectedProjectIdModal && selectedProjectIdModal !== "none" ? parseInt(selectedProjectIdModal, 10) : undefined,
           taxPercentage,
           totalAmount: totalAmount,
           additionalNotes: notes || undefined,
@@ -546,7 +543,7 @@ const ExpenseModal = ({
           billDate,
           dueDate,
           vendorId: parseInt(selectedVendorId, 10),
-          projectId: parseInt(selectedProjectIdModal, 10),
+          projectId: selectedProjectIdModal && selectedProjectIdModal !== "none" ? parseInt(selectedProjectIdModal, 10) : undefined,
           taxPercentage,
           totalAmount: totalAmount,
           additionalNotes: notes || undefined,
@@ -641,7 +638,7 @@ const ExpenseModal = ({
 
   const resetExpenseForm = () => {
     setSelectedVendorId("");
-    setSelectedProjectIdModal("");
+    setSelectedProjectIdModal("none");
     setBillNumber(`BILL-${Date.now().toString().slice(-4)}`);
     setBillDate(new Date().toISOString().split("T")[0]);
     const defaultDue = new Date();
@@ -863,16 +860,17 @@ const ExpenseModal = ({
             </DialogHeader>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label>Project <span className="text-red-500">*</span></Label>
+                <Label>Project</Label>
                 <Select 
                   value={selectedProjectIdModal} 
                   onValueChange={setSelectedProjectIdModal}
                   disabled={preselectedProjectId !== null && preselectedProjectId !== undefined}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select project" />
+                    <SelectValue placeholder="Select project (optional)" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="none">No Project</SelectItem>
                     {projects
                       .filter((project) => project.status === 'active' || project.id.toString() === selectedProjectIdModal)
                       .map((project) => (
