@@ -120,7 +120,7 @@ export const monthlyReportService = {
         headers['Authorization'] = `Bearer ${token}`;
       }
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}${url}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://mudhrobackend-e4hgcza0bsf4fbcu.centralindia-01.azurewebsites.net'}${url}`, {
         method: 'GET',
         headers,
       });

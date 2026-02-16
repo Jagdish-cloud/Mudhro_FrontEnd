@@ -99,7 +99,7 @@ const MonthlyReport = () => {
         const queryString = params.toString();
         // Use numeric userId directly (backend can handle both encoded and numeric IDs)
         const numericUserId = parseInt(userId, 10);
-        const url = `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/monthly-reports/${numericUserId}${queryString ? `?${queryString}` : ''}`;
+        const url = `${import.meta.env.VITE_API_URL || 'https://mudhrobackend-e4hgcza0bsf4fbcu.centralindia-01.azurewebsites.nethttps://mudhrobackend-e4hgcza0bsf4fbcu.centralindia-01.azurewebsites.net'}/api/monthly-reports/${numericUserId}${queryString ? `?${queryString}` : ''}`;
         
         const response = await fetch(url, {
           method: 'GET',
