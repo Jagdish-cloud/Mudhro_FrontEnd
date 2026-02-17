@@ -26,6 +26,8 @@ jobs:
 
       - name: Build root frontend
         run: npm run build   # outputs to dist/
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL || 'https://mudhrobackend-e4hgcza0bsf4fbcu.centralindia-01.azurewebsites.net' }}
 
       # Client portal
       - name: Install deps (client-portal)
@@ -37,6 +39,8 @@ jobs:
         run: |
           cd client-portal
           npm run build       # outputs to client-portal/dist/
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL || 'https://mudhrobackend-e4hgcza0bsf4fbcu.centralindia-01.azurewebsites.net' }}
 
       # Combine dist folders and prepare for deployment
       - name: Prepare combined dist
